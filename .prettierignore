@@ -1,0 +1,7 @@
+node_modules
+dist
+**/public/r
+packages/registry/registry.json
+shadcnui
+daisyui
+bun.lock

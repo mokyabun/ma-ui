@@ -1,0 +1,28 @@
+{
+  "name": "ma-ui",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "bun run --filter @ma-ui/tailwind build && bun run --filter @ma-ui/storybook dev",
+    "build": "bun run --filter '*' build",
+    "registry:build": "bun run --filter @ma-ui/registry build",
+    "shadcn:import": "bun packages/registry/scripts/shadcn-import.ts",
+    "test": "bun run --filter '*' test",
+    "typecheck": "bun run --filter '*' typecheck",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "bun run typecheck && bun run test && bun run format:check"
+  },
+  "devDependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
+    "@types/bun": "^1.4.2",
+    "prettier": "^3.9.9",
+    "prettier-plugin-tailwindcss": "^0.8.1",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7"
+  }
+}

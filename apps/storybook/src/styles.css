@@ -1,0 +1,15 @@
+/*
+ * Storybook stylesheet; also used by prettier-plugin-tailwindcss to sort classes.
+ * Consumer apps set up the same thing (see README).
+ */
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@plugin "@ma-ui/tailwind" {
+  themes:
+    light --default,
+    dark --prefersdark;
+}
+
+@source "../../../packages/registry/src";
+@source "../stories";
