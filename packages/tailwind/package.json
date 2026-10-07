@@ -1,38 +1,38 @@
 {
-  "name": "@ma-ui/tailwind",
-  "version": "0.0.1",
-  "description": "ma-ui design tokens and themes for Tailwind CSS v4 (daisyUI-compatible theme format)",
-  "type": "module",
-  "license": "MIT",
-  "files": [
-    "dist"
-  ],
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+    "name": "@ma-ui/tailwind",
+    "version": "0.0.1",
+    "description": "ma-ui design tokens and themes for Tailwind CSS v4 (daisyUI-compatible theme format)",
+    "type": "module",
+    "license": "MIT",
+    "files": [
+        "dist"
+    ],
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        },
+        "./theme": {
+            "types": "./dist/theme.d.ts",
+            "default": "./dist/theme.js"
+        },
+        "./themes": {
+            "types": "./dist/themes/index.d.ts",
+            "default": "./dist/themes/index.js"
+        },
+        "./package.json": "./package.json"
     },
-    "./theme": {
-      "types": "./dist/theme.d.ts",
-      "default": "./dist/theme.js"
+    "scripts": {
+        "build": "rm -rf dist && bun build ./src/index.ts ./src/theme.ts ./src/themes/index.ts --outdir dist --root src --target node --format esm --external tailwindcss && tsc -p tsconfig.build.json",
+        "dev": "bun build ./src/index.ts ./src/theme.ts ./src/themes/index.ts --outdir dist --root src --target node --format esm --external tailwindcss --watch",
+        "test": "bun test",
+        "typecheck": "tsc --noEmit"
     },
-    "./themes": {
-      "types": "./dist/themes/index.d.ts",
-      "default": "./dist/themes/index.js"
+    "peerDependencies": {
+        "tailwindcss": "^4.3.3"
     },
-    "./package.json": "./package.json"
-  },
-  "scripts": {
-    "build": "rm -rf dist && bun build ./src/index.ts ./src/theme.ts ./src/themes/index.ts --outdir dist --root src --target node --format esm --external tailwindcss && tsc -p tsconfig.build.json",
-    "dev": "bun build ./src/index.ts ./src/theme.ts ./src/themes/index.ts --outdir dist --root src --target node --format esm --external tailwindcss --watch",
-    "test": "bun test",
-    "typecheck": "tsc --noEmit"
-  },
-  "peerDependencies": {
-    "tailwindcss": "^4.3.3"
-  },
-  "devDependencies": {
-    "@tailwindcss/node": "^4.3.3",
-    "tailwindcss": "^4.3.3"
-  }
+    "devDependencies": {
+        "@tailwindcss/node": "^4.3.3",
+        "tailwindcss": "^4.3.3"
+    }
 }

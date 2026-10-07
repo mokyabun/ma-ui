@@ -1,43 +1,44 @@
 {
-  "name": "@ma-ui/registry",
-  "version": "0.0.0",
-  "private": true,
-  "description": "Component sources for the ma-ui shadcn registry",
-  "type": "module",
-  "exports": {
-    "./ui/*": "./src/ui/*.tsx",
-    "./lib/*": "./src/lib/*.ts",
-    "./hooks/*": "./src/hooks/*.ts"
-  },
-  "scripts": {
-    "build": "bun scripts/build-registry.ts && shadcn build -o public/r",
-    "import": "bun scripts/shadcn-import.ts",
-    "test": "bun test",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@base-ui/react": "^1.8.0",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "cmdk": "^1.1.1",
-    "date-fns": "^4.4.0",
-    "embla-carousel-react": "^8.6.0",
-    "input-otp": "^1.5.0",
-    "lucide-react": "^1.52.0",
-    "react-day-picker": "^10.0.2",
-    "react-resizable-panels": "^4.14.2",
-    "tailwind-merge": "^3.7.0"
-  },
-  "peerDependencies": {
-    "react": "^19",
-    "react-dom": "^19"
-  },
-  "devDependencies": {
-    "@types/react": "^19.3.0",
-    "@types/react-dom": "^19.3.0",
-    "react": "^19.3.0",
-    "react-dom": "^19.3.0",
-    "shadcn": "^4.21.2",
-    "ts-morph": "^26"
-  }
+    "name": "@ma-ui/registry",
+    "version": "0.0.0",
+    "private": true,
+    "description": "Component sources for the ma-ui shadcn registry",
+    "type": "module",
+    "exports": {
+        "./ui/*": "./src/ui/*.tsx",
+        "./lib/*": "./src/lib/*.ts",
+        "./hooks/*": "./src/hooks/*.ts"
+    },
+    "scripts": {
+        "build": "bun scripts/build-registry.ts && shadcn build -o public/r",
+        "import": "bun scripts/shadcn-import.ts",
+        "test": "bun test",
+        "typecheck": "tsc --noEmit"
+    },
+    "dependencies": {
+        "@base-ui/react": "^1.8.0",
+        "class-variance-authority": "^0.7.1",
+        "clsx": "^2.1.1",
+        "cmdk": "^1.1.1",
+        "date-fns": "^4.4.0",
+        "embla-carousel-react": "^8.6.0",
+        "input-otp": "^1.5.0",
+        "lucide-react": "^1.52.0",
+        "react-day-picker": "^10.0.2",
+        "react-resizable-panels": "^4.14.2",
+        "tailwind-merge": "^3.7.0"
+    },
+    "peerDependencies": {
+        "react": "^19",
+        "react-dom": "^19"
+    },
+    "devDependencies": {
+        "@types/react": "^19.3.0",
+        "@types/react-dom": "^19.3.0",
+        "oxfmt": "^0.64.0",
+        "react": "^19.3.0",
+        "react-dom": "^19.3.0",
+        "shadcn": "^4.21.2",
+        "ts-morph": "^26"
+    }
 }

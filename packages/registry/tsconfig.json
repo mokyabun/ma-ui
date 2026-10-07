@@ -1,11 +1,11 @@
 {
-  "extends": "../../tsconfig.base.json",
-  "compilerOptions": {
-    // Registry files import each other as `@/registry/ma/...` so the shadcn
-    // CLI can rewrite those imports to the consumer's aliases on install.
-    "paths": {
-      "@/registry/ma/*": ["./src/*"]
-    }
-  },
-  "include": ["src", "scripts"]
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+        // Registry files import each other as `@/registry/ma/...` so the shadcn
+        // CLI can rewrite those imports to the consumer's aliases on install.
+        "paths": {
+            "@/registry/ma/*": ["./src/*"]
+        }
+    },
+    "include": ["src", "scripts"]
 }

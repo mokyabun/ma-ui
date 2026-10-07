@@ -1,10 +1,10 @@
 {
-  "extends": "../../tsconfig.base.json",
-  "compilerOptions": {
-    // Needed to type-check registry sources imported through @ma-ui/registry.
-    "paths": {
-      "@/registry/ma/*": ["../../packages/registry/src/*"]
-    }
-  },
-  "include": ["src", "stories", ".storybook"]
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+        // Needed to type-check registry sources imported through @ma-ui/registry.
+        "paths": {
+            "@/registry/ma/*": ["../../packages/registry/src/*"]
+        }
+    },
+    "include": ["src", "stories", ".storybook/**/*"]
 }

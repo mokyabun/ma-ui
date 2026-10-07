@@ -1,0 +1,49 @@
+{
+    "$schema": "./node_modules/oxfmt/configuration_schema.json",
+    "useTabs": false,
+    "tabWidth": 4,
+    "printWidth": 100,
+    "singleQuote": true,
+    "jsxSingleQuote": false,
+    "semi": false,
+    "trailingComma": "all",
+    "arrowParens": "always",
+    "endOfLine": "lf",
+    "insertFinalNewline": true,
+    "sortImports": {
+        "customGroups": [
+            {
+                "groupName": "react",
+                "elementNamePattern": ["react", "react/**", "react-dom", "react-dom/**"]
+            },
+            { "groupName": "ma-ui", "elementNamePattern": ["@ma-ui/**"] }
+        ],
+        "groups": [
+            "react",
+            { "newlinesBetween": false },
+            ["builtin", "external"],
+            "ma-ui",
+            { "newlinesBetween": false },
+            ["internal", "subpath"],
+            ["parent", "sibling", "index"],
+            "style",
+            "unknown"
+        ]
+    },
+    "sortTailwindcss": {
+        "stylesheet": "./apps/storybook/src/styles.css",
+        "functions": ["cn", "cva"]
+    },
+    "sortPackageJson": false,
+    "ignorePatterns": [
+        "**/node_modules/**",
+        "**/dist/**",
+        "**/coverage/**",
+        "**/public/r/**",
+        "**/storybook-static/**",
+        "packages/registry/registry.json",
+        "shadcnui/**",
+        "daisyui/**",
+        "bun.lock"
+    ]
+}

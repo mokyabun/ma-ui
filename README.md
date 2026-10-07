@@ -16,7 +16,7 @@ ma-ui/
 ├─ apps/
 │  └─ storybook/              @ma-ui/storybook (private) — 개발/문서
 │     ├─ .storybook/          main.ts, preview.tsx (테마 전환 툴바)
-│     ├─ src/styles.css       Tailwind + 플러그인 설정 (prettier 클래스 정렬도 이 파일 사용)
+│     ├─ src/styles.css       Tailwind + 플러그인 설정 (oxfmt 클래스 정렬도 이 파일 사용)
 │     └─ stories/             foundations/, ui/
 ├─ packages/
 │  ├─ tailwind/               @ma-ui/tailwind (npm 배포 대상) — 테마/토큰 Tailwind 플러그인
@@ -36,7 +36,8 @@ ma-ui/
 │     ├─ registry.json        (생성됨) shadcn 레지스트리 매니페스트
 │     └─ public/r/            (생성됨, gitignore) 설치용 JSON
 ├─ tsconfig.base.json         공용 TS 설정 (각 패키지가 extends)
-└─ prettier.config.mjs
+├─ .oxfmtrc.json
+└─ .oxlintrc.json
 ```
 
 의존 방향: `storybook → registry, tailwind`. registry와 tailwind는 서로 모릅니다
@@ -55,7 +56,8 @@ bun run dev               # 플러그인 빌드 + Storybook (http://localhost:60
 bun run build             # 전체 빌드 (의존 순서: tailwind, registry → storybook)
                           #   Storybook 정적 빌드(apps/storybook/dist)에 /r 레지스트리 포함
 bun run registry:build    # registry.json + public/r/*.json 만
-bun run check             # typecheck + test + prettier (모든 workspace)
+bun run check             # typecheck + test + oxfmt + oxlint (모든 workspace)
+bun run format            # oxfmt로 포맷 (lint:fix 는 oxlint 자동 수정)
 bun run shadcn:import <name...>   # shadcn에서 컴포넌트 가져오기 (아래 참고)
 ```
 
@@ -72,23 +74,23 @@ bun run shadcn:import <name...>   # shadcn에서 컴포넌트 가져오기 (아�
 | 크기   | `--size-field`, `--size-selector` (기본 0.25rem 단위)                                                                                 | `h-field`, `h-field-sm`, `size-selector`                 |
 
 ```css
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 /* 기본 테마 선택 (daisyUI와 같은 문법). 기본값: light --default, dark --prefersdark */
 @plugin "@ma-ui/tailwind" {
-  themes:
-    light --default,
-    dark --prefersdark;
+    themes:
+        light --default,
+        dark --prefersdark;
 }
 
 /* 새 테마 정의 or 기존 테마 일부 덮어쓰기 */
 @plugin "@ma-ui/tailwind/theme" {
-  name: "brand";
-  color-scheme: light;
-  --color-primary: oklch(55% 0.2 260);
-  --color-primary-content: oklch(98% 0.01 260);
-  --radius-field: 0.375rem;
+    name: 'brand';
+    color-scheme: light;
+    --color-primary: oklch(55% 0.2 260);
+    --color-primary-content: oklch(98% 0.01 260);
+    --radius-field: 0.375rem;
 }
 ```
 
@@ -110,20 +112,20 @@ bun run shadcn:import <name...>   # shadcn에서 컴포넌트 가져오기 (아�
 1. `packages/registry/public/r`를 정적으로 호스팅 (`bun run build` 결과 `apps/storybook/dist/r/`에 포함 — Storybook과 같은 도메인에서 서빙)
 2. 소비자 `components.json`에 네임스페이스 등록:
 
-   ```json
-   {
-     "registries": {
-       "@ma-ui": "https://<host>/r/{name}.json"
-     }
-   }
-   ```
+    ```json
+    {
+        "registries": {
+            "@ma-ui": "https://<host>/r/{name}.json"
+        }
+    }
+    ```
 
 3. 설치:
 
-   ```bash
-   bunx shadcn add @ma-ui/style     # @ma-ui/tailwind, tw-animate-css, cn() + CSS 설정
-   bunx shadcn add @ma-ui/button @ma-ui/dialog
-   ```
+    ```bash
+    bunx shadcn add @ma-ui/style     # @ma-ui/tailwind, tw-animate-css, cn() + CSS 설정
+    bunx shadcn add @ma-ui/button @ma-ui/dialog
+    ```
 
 > `@ma-ui/style`은 npm의 `@ma-ui/tailwind`를 설치합니다. 먼저 `packages/tailwind`를 npm에 배포하세요
 > (스코프를 바꾸면 `packages/tailwind/package.json`, `packages/registry/scripts/build-registry.ts`, `apps/storybook/src/styles.css`도 같이 수정).
@@ -144,7 +146,7 @@ bun run shadcn:import --style vega ...       # 다른 shadcn 스타일 기반으
 
 1. `cn-*` 플레이스홀더를 스타일 CSS(기본 `nova`)로 채움 — shadcn 자체 변환기 사용
 2. 토큰 변환 (`packages/registry/scripts/lib/tokens.ts`): `bg-muted → bg-base-200`, `destructive → error`, `border-input → border-base-content/20`, radius → `selector/field/box`, 컨트롤 높이 → `h-field*`, `dark:` 제거
-3. `<IconPlaceholder>` → lucide-react, import 경로 → `@/registry/ma/*`, prettier 정렬
+3. `<IconPlaceholder>` → lucide-react, import 경로 → `@/registry/ma/*`, oxfmt 정렬
 
 기존 파일은 건너뜁니다. 가져온 뒤엔 자유롭게 수정하세요 — 가져오기는 출발점일 뿐입니다.
 기본 제외: `chart`, `sonner`, AI 채팅 계열(`message`, `bubble` 등) — 필요하면 이름으로 가져오기.
