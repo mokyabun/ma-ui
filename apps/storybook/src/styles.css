@@ -6,9 +6,9 @@
 @import 'tw-animate-css';
 
 @plugin "@ma-ui/tailwind" {
-    themes:
-        light --default,
-        dark --prefersdark;
+    --radius-selector: 0.5rem;
+    --radius-field: 0.25rem;
+    --radius-box: 0.5rem;
 }
 
 @source "../../../packages/registry/src";

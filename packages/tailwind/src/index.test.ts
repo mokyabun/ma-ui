@@ -71,6 +71,14 @@ describe('plugin', () => {
         expect(css).toContain('[data-open]:not([data-open="false"])')
     })
 
+    test('token options override every built-in theme', async () => {
+        const css = await build(`@plugin "${pluginPath}" { --radius-field: 0.25rem; }`, [
+            'rounded-field',
+        ])
+        expect(css).not.toContain('--radius-field: 0;')
+        expect(css.match(/--radius-field: 0\.25rem/g)).toHaveLength(3) // light, prefers-dark, dark
+    })
+
     test('theme plugin defines and extends themes', async () => {
         const css = await build(
             `@plugin "${pluginPath}" { themes: false; }

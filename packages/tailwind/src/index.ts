@@ -13,6 +13,9 @@ export type PluginOptions = {
     themes?: string | string[] | boolean
     /** Element the default theme is attached to. */
     root?: string
+} & {
+    /** Token overrides applied to every built-in theme, e.g. `--radius-field: 0.25rem`. */
+    [token: `--${string}`]: string
 }
 
 type ThemeEntry = { name: string; isDefault: boolean; prefersDark: boolean }
@@ -45,17 +48,20 @@ const maUi: ReturnType<typeof plugin.withOptions<PluginOptions>> =
     plugin.withOptions<PluginOptions>(
         (options = {}) =>
             ({ addBase, addUtilities, addVariant }) => {
-                const root = options.root ?? ':root'
+                const { themes, root = ':root', ...overrides } = options
 
                 // Themes. Order matters: default first, then prefers-dark, then the
                 // explicit `[data-theme]` selectors so an explicit choice always wins.
-                const entries = parseThemes(options.themes)
+                const entries = parseThemes(themes)
                 const known = entries.filter(({ name }) => {
                     if (name in builtinThemes) return true
                     console.warn(`[@ma-ui/tailwind] Unknown theme "${name}", skipped.`)
                     return false
                 })
-                const tokens = (name: string) => builtinThemes[name as keyof typeof builtinThemes]
+                const tokens = (name: string) => ({
+                    ...builtinThemes[name as keyof typeof builtinThemes],
+                    ...overrides,
+                })
 
                 for (const { name } of known.filter((entry) => entry.isDefault)) {
                     addBase({

@@ -1,6 +1,6 @@
 # ma-ui
 
-shadcn 방식(복사해서 소유하는) React 컴포넌트 레지스트리.
+shadcn 방식의 React 컴포넌트 레지스트리.
 
 - **컴포넌트**: shadcn/ui의 Base UI 버전(`@base-ui/react`)에서 가져와 수정
 - **테마 시스템**: daisyUI 5와 같은 토큰/테마 포맷 (`@ma-ui/tailwind` Tailwind v4 플러그인)
@@ -82,6 +82,9 @@ bun run shadcn:import <name...>   # shadcn에서 컴포넌트 가져오기 (아�
     themes:
         light --default,
         dark --prefersdark;
+
+    /* 모든 내장 테마에 공통으로 덮어쓸 토큰 (선택) */
+    --radius-field: 0.25rem;
 }
 
 /* 새 테마 정의 or 기존 테마 일부 덮어쓰기 */
@@ -157,9 +160,3 @@ bun run shadcn:import --style vega ...       # 다른 shadcn 스타일 기반으
 2. `apps/storybook/stories/ui/<name>.stories.tsx` 작성 (import는 `@ma-ui/registry/ui/<name>`)
 3. `bun run registry:build` — 의존성(npm, 레지스트리)은 import에서 자동 추론.
    설명 등 메타데이터는 `packages/registry/scripts/build-registry.ts`의 `ITEM_OVERRIDES`에.
-
-## 참고
-
-- Storybook은 Vite 빌더를 씁니다 (Storybook이 Bun 번들러를 지원하지 않아서). 그 외엔 Bun 그대로.
-- Bun isolated install을 쓰므로 각 패키지는 자기 `package.json`에 선언한 의존성만 볼 수 있습니다. 컴포넌트가 새 npm 패키지를 쓰면 `packages/registry`에 추가하세요.
-- `shadcnui/`, `daisyui/`는 참고용 클론이며 gitignore 됩니다. `shadcn:import`가 `shadcnui/`를 읽습니다.
